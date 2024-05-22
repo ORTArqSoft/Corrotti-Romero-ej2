@@ -1,30 +1,11 @@
-import MedicalRecord from '../models/medicalRecord';
+import DatoRecord from '../models/datoModel';
 
-export const getAllMedicalRecords = async () => {
-  return await MedicalRecord.find();
+export const getAllDatoRecords = async () => {
+  return await DatoRecord.find();
 };
 
-export const createMedicalRecord = async (recordData: any) => {
-  const record = new MedicalRecord(recordData);
+export const createDatoRecord = async (recordData: any) => {
+  const record = new DatoRecord(recordData);
   return await record.save();
 };
 
-export const getRecordsByDate = async (startDate: Date, endDate: Date) => {
-  return await MedicalRecord.find({
-    visitDate: { $gte: startDate, $lte: endDate }
-  });
-};
-
-export const getConsultationCountsByDoctor = async () => {
-  return await MedicalRecord.aggregate([
-    {
-      $group: {
-        _id: "$doctorName",
-        count: { $sum: 1 }
-      }
-    },
-    {
-      $sort: { count: -1 }
-    }
-  ]);
-};
