@@ -1,13 +1,13 @@
-import express from 'express';
+import express, { Express, Request, Response } from 'express';
 import { publishMessage } from './publisher-list';
 
 const app = express();
 
 app.use(express.json());
 
-app.get('/createDato', (req, res) => {
+app.post('/createDato', (req: Request, res: Response) => {
     publishMessage(req.body)
-    res.send('Dato creado y enviado por cola');
+    res.status(201).send({ message: 'User created successfully', user: req.body });
 });
 
 app.listen(3000, () => {

@@ -19,8 +19,11 @@ export const publishMessage = (message: string) => {
       setInterval(() => {
         const routingKey = 'info'; // You can replace this with any topic
 
+        console.log(" [x] Sent %s:'%s'", routingKey, message);
+
+
         // Publicar el mensaje en el exchange de lista
-        channel.publish(exchange, routingKey, Buffer.from(message));
+        channel.publish(exchange, routingKey, Buffer.from(JSON.stringify(message)));
         console.log(" [x] Sent %s:'%s'", routingKey, message);
       }, 1000);
     });
